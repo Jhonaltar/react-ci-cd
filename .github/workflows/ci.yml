@@ -1,0 +1,21 @@
+
+name: Mi primer CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  primer-trabajo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mostrar mensaje
+        run: echo "Hola, GitHub Actions esta funcionando"
+
+      - name: Verificar Node.js
+        run: node --version
+
+      - name: Verificar npm
+        run: npm --version
