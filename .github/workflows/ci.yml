@@ -1,21 +1,38 @@
 
-name: Mi primer CI
+name: Frontend CI
 
 on:
   push:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
 jobs:
-  primer-trabajo:
+  build:
+    name: Verificar proyecto React
     runs-on: ubuntu-latest
 
     steps:
-      - name: Mostrar mensaje
-        run: echo "Hola, GitHub Actions esta funcionando"
+      - name: Obtener codigo
+        uses: actions/checkout@v4
 
-      - name: Verificar Node.js
-        run: node --version
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-      - name: Verificar npm
-        run: npm --version
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar ESLint
+        run: npm run lint
+
+      - name: Compilar proyecto
+        run: npm run build
