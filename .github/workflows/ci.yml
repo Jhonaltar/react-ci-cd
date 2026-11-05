@@ -1,32 +1,27 @@
 
-name: Frontend CI
+name: CI - React
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
   pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: read
+    branches: [main]
 
 jobs:
-  build:
-    name: Verificar proyecto React
+  ci:
+    name: Validar proyecto
     runs-on: ubuntu-latest
 
     steps:
-      - name: Obtener codigo
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: 22
+          cache: npm
 
       - name: Instalar dependencias
         run: npm ci
@@ -36,3 +31,9 @@ jobs:
 
       - name: Compilar proyecto
         run: npm run build
+
+      - name: Ejecutar pruebas Vitest
+        run: npm run test
+
+      - name: Ejecutar pruebas Jest
+        run: npm run test:jest
