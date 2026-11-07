@@ -79,12 +79,10 @@ jobs:
           cat /tmp/vite.log
           exit 1
       
+      
       - name: Ejecutar pruebas E2E con Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
-          wait-on: 'http://127.0.0.1:5173'
-          wait-on-timeout: 120
           browser: chrome
           install: false
 
