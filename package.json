@@ -10,7 +10,8 @@
     "test:jest": "jest --config jest.config.cjs",
     "test": "vitest run",
     "preview": "vite preview",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:cypress": "cypress run --browser chrome"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -32,6 +33,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "babel-plugin-react-compiler": "^1.0.0",
+    "cypress": "^16.2.1",
     "eslint": "^10.13.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",

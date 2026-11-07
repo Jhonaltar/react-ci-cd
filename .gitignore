@@ -26,3 +26,8 @@ dist-ssr
 
 playwright-report/
 test-results/
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
