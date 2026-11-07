@@ -55,12 +55,34 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
       
+      - name: Iniciar Vite y verificar servidor
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 5173 --strictPort > /tmp/vite.log 2>&1 &
+          echo $! > /tmp/vite.pid
+
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5173/ > /dev/null; then
+              echo "Vite iniciado correctamente"
+              exit 0
+            fi
+
+            if ! kill -0 "$(cat /tmp/vite.pid)" 2>/dev/null; then
+              echo "El proceso de Vite termino inesperadamente"
+              cat /tmp/vite.log
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          echo "Vite no respondio dentro del tiempo esperado"
+          cat /tmp/vite.log
+          exit 1
+      
+      
       - name: Ejecutar pruebas E2E con Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
-          wait-on: 'http://127.0.0.1:5173'
-          wait-on-timeout: 120
           browser: chrome
           install: false
 
