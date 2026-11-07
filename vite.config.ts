@@ -27,6 +27,7 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/src/jest/**',
+      '**/e2e/**',
     ],
   },
 });
